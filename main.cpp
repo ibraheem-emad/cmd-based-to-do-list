@@ -7,9 +7,11 @@
 
 using json = nlohmann::json;
 
-void save_tasks_to_json(const std::vector<tasks>& tasks_list) {
+void save_tasks_to_json(const std::vector<tasks>& tasks_list)
+{
     std::ofstream output("data.json");
-    if (output.is_open()) {
+    if (output.is_open())
+    {
         nlohmann::json j(tasks_list);
         output << std::setw(4) << j << std::endl;
         output.close();
@@ -20,15 +22,18 @@ void save_tasks_to_json(const std::vector<tasks>& tasks_list) {
     }
 }
 
-void load_tasks_from_json(std::vector<tasks>& tasks_list) {
+void load_tasks_from_json(std::vector<tasks>& tasks_list)
+{
     std::ifstream input("data.json");
-    if (input.is_open()) {
+    if (input.is_open())
+    {
         nlohmann::json loaded_json;
         input >> loaded_json;
         input.close();
 
         tasks_list.clear(); // Clear the existing vector
-        for (const auto& element : loaded_json) {
+        for (const auto& element : loaded_json)
+        {
             tasks task;
             element.get_to(task);
             tasks_list.push_back(task);
@@ -70,12 +75,12 @@ void draw_list(std::vector<tasks> list)
     if (check_empty_list(list))
     {
 
-        std::cout << "you have no tasks to do (lucky bastard)\n\n";
+        std::cout << "you have no tasks to do.\n\n";
         system("pause");
 
     }
     else
-    {
+    {    
 
         int longest_name_lenght{ get_longest_name_lenght(list) };
 
@@ -512,55 +517,3 @@ int main()
 
                     
 }
-
-
-
-/*
-
-https://github.com/nlohmann/json?tab=readme-ov-file#conversion-from-stl-containers
-
-https://github.com/nlohmann/json?tab=readme-ov-file#basic-usage
-
-
-#include <iostream>
-#include <string>
-#include <vector>
-#include <nlohmann/json.hpp>
-
-
-struct O
-{
-    std::string name;
-    int age;
-};
-
-
-void to_json(nlohmann::json &j, const O &o)
-{
-    j = nlohmann::json{{"name", o.name},  {"age", o.age}};
-}
-
-int main()
-{
-
-    {
-        std::vector<int> v{1, 2, 3, 4};
-
-        nlohmann::json j(v);
-
-        std::cout << j << "\n\n";
-    }
-
-
-    {
-        std::vector<O> v{{"bernard", 42}, {"sophie", 13}};
-
-        nlohmann::json j(v);
-
-        std::cout << j << "\n\n";
-    }
-
-
-}
-
-*/
