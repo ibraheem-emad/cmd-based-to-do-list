@@ -487,13 +487,13 @@ int main()
                 choice = 0;
                 break;
                 
-            case 2: // add new tasks
+            case 2: // add new tasks.
 
                 add_task(tasks_list);
 
                 break;
 
-            case 3: // remove a task
+            case 3: // remove a task.
 
                 if(check_empty_list(tasks_list) == true) 
                 {
